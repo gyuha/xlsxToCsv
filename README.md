@@ -1,5 +1,7 @@
 # Xlsx To Csv
-Excel to csv file convert application.
+Convert excel file to csv file.
+
+csv file encoding : utf-8
 
 ## Support file
 * Excel format : `xlsx`
