@@ -3,6 +3,9 @@ Convert excel file to csv file.
 
 csv file encoding : utf-8
 
+## Requirements
+* Visual Studio 2015
+
 ## Support file
 * Excel format : `xlsx`
 * Excel 97-2003 format : `xls`
