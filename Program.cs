@@ -25,7 +25,7 @@ namespace xlsxToCsv
                 var tar = Path.ChangeExtension(src, "csv");
                 Console.WriteLine(src + " => " + tar);
                 try {
-                    if(excelConvert.convert(src, tar) == false)
+                    if(excelConvert.Convert(src, tar) == false)
                     {
                         Console.WriteLine("ERROR : ["+src+"] can't read excel file.");
                     }
@@ -89,7 +89,7 @@ namespace xlsxToCsv
             }
 
             Console.WriteLine(srcFile + " => " + tarFile);
-            if (excelConvert.convert(srcFile, tarFile) == false)
+            if (excelConvert.Convert(srcFile, tarFile) == false)
             {
                 Console.WriteLine("ERROR : [" + srcFile + "] can't read excel file.");
                 return 1;

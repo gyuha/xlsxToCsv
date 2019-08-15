@@ -1,25 +1,22 @@
-﻿using System;
+﻿using Excel;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Excel;
+using System.Text.RegularExpressions;
 
 namespace xlsxToCsv
 {
     public class ExcelConvert
     {
-        DataSet result = new DataSet();
+        private DataSet result = new DataSet();
 
-        public bool convert(string src, string tar)
+        public bool Convert(string src, string tar)
         {
-            getExcelData(src);
-            return converToCSV(tar);
+            GetExcelData(src);
+            return ConverToCSV(tar);
         }
 
-        private void getExcelData(string file)
+        private void GetExcelData(string file)
         {
             if (file.EndsWith(".xlsx"))
             {
@@ -44,7 +41,7 @@ namespace xlsxToCsv
                 items.Add(result.Tables[i].TableName.ToString());
         }
 
-        private bool converToCSV(string toFilePath)
+        private bool ConverToCSV(string toFilePath)
         {
             int index = 0;
             // sheets in excel file becomes tables in dataset
@@ -52,7 +49,7 @@ namespace xlsxToCsv
 
             string a = "";
             int row_no = 0;
-            if(result.Tables.Count == 0)
+            if (result.Tables.Count == 0)
             {
                 return false;
             }
@@ -60,9 +57,16 @@ namespace xlsxToCsv
             {
                 for (int i = 0; i < result.Tables[index].Columns.Count; i++)
                 {
-                    a += result.Tables[index].Rows[row_no][i].ToString() + ",";
+                    if (i - 1 < result.Tables[index].Columns.Count)
+                    {
+                        a += result.Tables[index].Rows[row_no][i].ToString() + ",";
+                    } else
+                    {
+                        a += result.Tables[index].Rows[row_no][i].ToString();
+                    }
                 }
                 row_no++;
+                a = Regex.Replace(a, ",*$", "");
                 a += "\n";
             }
             string output = toFilePath;
